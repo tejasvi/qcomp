@@ -32,19 +32,23 @@ def gind(gram, ind, n):
 
            # print(ngram, type(ngram))
             if ngram in gram:
-                print(bool(gram[ngram][id]))
+                if id not in gram[ngram]:
+                    gram[ngram][id] = {}
+                    gram[ngram][id]['freq'] = 1
+               # print(gram)
                 gram[ngram][id]['freq'] += 1
             else:
                 gram[ngram] = {}
                 gram[ngram][id] = {}
                 gram[ngram][id]['freq'] = 1
-                gram[ngram][".freq"] = 0
-            gram[ngram]['.freq'] += 1
+                gram[ngram][-1] = 0
+            gram[ngram][-1] += 1
             gram['.freq'] += 1
-    afreq = math.log10(gram['freq']/len(gram))
+    afreq = math.log10(gram['.freq']/len(gram))
     for dat in gram.values():
-        for freq in dat.values() :
-            freq /= afreq
+        for id in dat.keys() :
+           
+           ifprint(id) #freq /= afreq
     if (n==1):
         for ngrams in gram.items():
             ndoc = len(gram[ngrams])
